@@ -32,7 +32,7 @@ steps:
         $(imageTag)
       buildContext: '$(Build.SourcesDirectory)'
 
-  # 3) Gerar um artefato simples só pra Release enxergar o build
+  # Gerar um artefato simples só pra Release enxergar o build
   - script: |
       echo "IMAGE_NAME=$(acrLoginServer)/$(imageRepository)"  > build-info.txt
       echo "IMAGE_TAG=$(Build.BuildId)"                      >> build-info.txt
