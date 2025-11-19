@@ -10,7 +10,7 @@ description = 'Aplicação workingsafe para monitoramento e dashboards analític
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
 
