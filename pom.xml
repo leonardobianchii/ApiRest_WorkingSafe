@@ -74,12 +74,6 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
-        <!-- RabbitMQ Streams -->
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit-stream</artifactId>
-        </dependency>
-
         <!-- SQL Server driver -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>

@@ -39,14 +39,6 @@ spring:
     locale: pt_BR
     locale-resolver: accept_header
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    template:
-      exchange: workingsafe.events
-
 server:
   error:
     whitelabel:

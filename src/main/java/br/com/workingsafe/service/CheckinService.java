@@ -5,8 +5,6 @@ import br.com.workingsafe.dto.RecomendacaoIaDto;
 import br.com.workingsafe.mapper.CheckinMapper;
 import br.com.workingsafe.model.Checkin;
 import br.com.workingsafe.model.Usuario;
-import br.com.workingsafe.rabbit.events.CheckinEvent;
-import br.com.workingsafe.rabbit.producer.CheckinEventProducer;
 import br.com.workingsafe.repository.CheckinRepository;
 import br.com.workingsafe.repository.UsuarioRepository;
 import org.slf4j.Logger;
@@ -29,18 +27,15 @@ public class CheckinService {
     private final CheckinRepository checkinRepository;
     private final UsuarioRepository usuarioRepository;
     private final CheckinMapper mapper;
-    private final CheckinEventProducer checkinEventProducer;
     private final RecomendacaoIaService recomendacaoIaService;
 
     public CheckinService(CheckinRepository checkinRepository,
                           UsuarioRepository usuarioRepository,
                           CheckinMapper mapper,
-                          CheckinEventProducer checkinEventProducer,
                           RecomendacaoIaService recomendacaoIaService) {
         this.checkinRepository = checkinRepository;
         this.usuarioRepository = usuarioRepository;
         this.mapper = mapper;
-        this.checkinEventProducer = checkinEventProducer;
         this.recomendacaoIaService = recomendacaoIaService;
     }
 
@@ -64,16 +59,6 @@ public class CheckinService {
         Checkin checkin = mapper.toEntity(dto, usuario);
         checkin = checkinRepository.save(checkin);
 
-        // ===== Evento Rabbit: CHECKIN CREATED =====
-        CheckinEvent event = new CheckinEvent(
-                checkin.getId(),
-                checkin.getUsuario().getId(),
-                checkin.getDataHora(),
-                checkin.getHumor(),
-                checkin.getFoco(),
-                checkin.getOrigem()
-        );
-        checkinEventProducer.enviarCheckinCreated(event);
 
         // ===== Gera recomendacoes genericas com base nos ultimos check-ins =====
         List<RecomendacaoIaDto> recomendacoes =
