@@ -15,11 +15,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    defer-datasource-initialization: false   # <<< nao depender mais de scripts
+    defer-datasource-initialization: false
 
   sql:
     init:
-      mode: never                            # <<< desliga schema.sql / data.sql
+      mode: never
 
   thymeleaf:
     enabled: true
